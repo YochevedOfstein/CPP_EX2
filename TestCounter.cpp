@@ -1,3 +1,5 @@
+// yocheved@davidowitz.net | 324460682
+
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
 using namespace doctest;
@@ -13,13 +15,20 @@ struct ReporterCounter : public ConsoleReporter
 
     void test_run_end(const TestRunStats &run_stats) override
     {
+        int succeeded_tests = run_stats.numAsserts - run_stats.numAssertsFailed;
+
         if (run_stats.numAsserts >= MIN_TESTS)
         {
+            std::cout << "You have written enough tests! You have written " << run_stats.numAsserts << std::endl;
+            std::cout << "Number of succeeded tests: " << succeeded_tests << std::endl;
+            std::cout << "Number of failed tests: " << run_stats.numAssertsFailed << std::endl;
             return_code = 0;
         }
         else
         {
-            std::cout << "Please write at least " << MIN_TESTS << " tests! " << std::endl;
+            std::cout << "Please write at least " << MIN_TESTS << " tests! You only have " << run_stats.numAsserts << std::endl;
+            std::cout << "Number of succeeded tests: " << succeeded_tests << std::endl;
+            std::cout << "Number of failed tests: " << run_stats.numAssertsFailed << std::endl;
             return_code = 1;
         }
     }

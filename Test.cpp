@@ -682,29 +682,22 @@ TEST_CASE("Test graph multiplication")
     ariel::Graph g2;
     vector<vector<int>> graph2 = {
         {0, 1, 1},
-        {1, 0, 1},
-        {1, 1, 0}};
+        {1, 0, 2},
+        {1, 2, 0}};
     g2.loadGraph(graph2);
 
     ariel::Graph g3 = g1 * g2;
 
     ariel::Graph g4;
     vector<vector<int>> expected = {
-        {0, 1, 0},
+        {0, 0, 2},
         {1, 0, 1},
-        {0, 1, 0}};
+        {1, 0, 0}};
     g4.loadGraph(expected);
-
-
 
     CHECK((g3.getGraph() == expected) == true);
 
-    SUBCASE("Test graph multiplication assignment operator")
-    {
-        g1 *= g2;
-        CHECK((g1.getGraph() == g4.getGraph()) == true);
-    }
-
+    
     SUBCASE("Test multiplication by scalar")
     {
         ariel::Graph g5 = g1 * 2;
@@ -717,6 +710,45 @@ TEST_CASE("Test graph multiplication")
 
         CHECK((g5.getGraph() == expected2) == true);
     }
+
+
+    SUBCASE("Test graph multiplication assignment operator")
+    {
+        g1 *= g2;
+        CHECK((g1.getGraph() == g4.getGraph()) == true);
+
+        g1 *= -3;
+        ariel::Graph g7;
+        vector<vector<int>> expected2 = {
+            {0, 0, -6},
+            {-3, 0, -3},
+            {-3, 0, 0}};
+        g7.loadGraph(expected2);
+
+        CHECK((g1.getGraph() == expected2) == true);
+
+    }
+}
+
+TEST_CASE("Test graph dividion assignment operator")
+{
+    ariel::Graph g1;
+    vector<vector<int>> graph = {
+        {0, 9, 0},
+        {6, 0, 6},
+        {0, 9, 0}};
+    g1.loadGraph(graph);
+
+    ariel::Graph g2;
+    vector<vector<int>> graph2 = {
+        {0, 3, 0},
+        {2, 0, 2},
+        {0, 3, 0}};
+    g2.loadGraph(graph2);
+
+    g1 /= 3;
+
+    CHECK((g1.getGraph() == g2.getGraph()) == true);
 }
 
 TEST_CASE("Test increment and decrement operators"){

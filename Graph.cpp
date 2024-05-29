@@ -140,14 +140,36 @@ Graph Graph::operator-(const Graph& graph){
 }
 
 Graph Graph::operator*(const Graph& graph){
-    vector<vector<int>> newMatrix;
+
     if(this->getNumOfVertices() != graph.getNumOfVertices()){
         throw invalid_argument("Invalid graph - the number of columns of the first matrix must be equal to the number of rows of the second matrix");
     }
+    size_t vertices = this->getNumOfVertices();
+
+    vector<vector<int>> newMatrix(vertices, vector<int>(vertices, 0));
+
+    for(size_t i = 0; i < this->getNumOfVertices(); i++){
+        for(size_t j = 0; j < this->getNumOfVertices(); j++){
+            if(i == j){
+                newMatrix[i][j] = 0;
+                continue;
+            }
+            for(size_t k = 0; k < this->getNumOfVertices(); k++){
+                newMatrix[i][j] += this->adjMatrix[i][k] * graph.adjMatrix[k][j];
+            }
+        }
+    }
+    Graph newGraph;
+    newGraph.loadGraph(newMatrix);
+    return newGraph;
+}
+
+Graph Graph::operator*(int scalar){
+    vector<vector<int>> newMatrix;
     for(size_t i = 0; i < this->getNumOfVertices(); i++){
         vector<int> row;
         for(size_t j = 0; j < this->getNumOfVertices(); j++){
-            row.push_back(this->adjMatrix[i][j] * graph.adjMatrix[i][j]);
+            row.push_back(this->adjMatrix[i][j] * scalar);
         }
         newMatrix.push_back(row);
     }
@@ -155,6 +177,7 @@ Graph Graph::operator*(const Graph& graph){
     newGraph.loadGraph(newMatrix);
     return newGraph;
 }
+
 
 Graph& Graph::operator+=(const Graph& graph){
     if(this->getNumOfVertices() != graph.getNumOfVertices()){
@@ -181,30 +204,28 @@ Graph& Graph::operator-=(const Graph& graph){
 }
 
 Graph& Graph::operator*=(const Graph& graph){
-    if(this->getNumOfVertices() != graph.getNumOfVertices()){
-        throw invalid_argument("Invalid graph - the graphs must have the same number of vertices");
+    *this = *this * graph;
+    return *this;
+}
+
+Graph& Graph::operator*=(int scalar){
+    *this = *this * scalar;
+    return *this;
+}
+
+Graph& Graph::operator/=(int scalar){
+    if(scalar == 0){
+        throw invalid_argument("Invalid scalar - cannot divide by 0");
     }
     for(size_t i = 0; i < this->getNumOfVertices(); i++){
         for(size_t j = 0; j < this->getNumOfVertices(); j++){
-            this->adjMatrix[i][j] *= graph.adjMatrix[i][j];
+            this->adjMatrix[i][j] /= scalar;
         }
     }
     return *this;
 }
 
-Graph Graph::operator*(int scalar){
-    vector<vector<int>> newMatrix;
-    for(size_t i = 0; i < this->getNumOfVertices(); i++){
-        vector<int> row;
-        for(size_t j = 0; j < this->getNumOfVertices(); j++){
-            row.push_back(this->adjMatrix[i][j] * scalar);
-        }
-        newMatrix.push_back(row);
-    }
-    Graph newGraph;
-    newGraph.loadGraph(newMatrix);
-    return newGraph;
-}
+
 
 bool contains(const Graph& g1, const Graph& g2) {
     if (g1.getNumOfVertices() < g2.getNumOfVertices()) {
@@ -339,4 +360,21 @@ Graph Graph::operator-() const {
         }
     }
     return temp; 
+}
+
+ostream& ariel::operator<<(ostream& os, const Graph& graph){
+
+    size_t vertices = graph.getNumOfVertices();
+
+    for (size_t i = 0; i < vertices; i++) {
+        os << "[";
+        for (size_t j = 0; j < vertices; j++) {
+            os << graph.getGraph()[i][j];
+            if (j != vertices - 1){
+                os << ", ";
+            } 
+        }
+        os << "]" << endl;
+    }
+    return os;
 }

@@ -92,12 +92,13 @@ namespace ariel{
         Graph operator+(const Graph& graph);
         Graph operator-(const Graph& graph);
         Graph operator*(const Graph& graph);
+        Graph operator*(int scalar);
 
         Graph& operator+=(const Graph& graph);
         Graph& operator-=(const Graph& graph);
         Graph& operator*=(const Graph& graph);
-
-        Graph operator*(int scalar);
+        Graph& operator*=(int scalar);
+        Graph& operator/=(int scalar);
 
         bool operator==(const Graph& graph);
         bool operator!=(const Graph& graph);
@@ -112,6 +113,8 @@ namespace ariel{
         Graph operator--(int);  
         Graph operator+() const;
         Graph operator-() const;
+
+        friend ostream& operator<<(ostream& os, const Graph& graph);
 
 
     };

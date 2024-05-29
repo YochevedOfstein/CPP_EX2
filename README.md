@@ -13,12 +13,13 @@ As in the previous assignment, the graph is represented using an adjacency matri
 * *Subtraction* `-`: subtraction of one graph from another, where each corresponding edge weight is subtracted to form a new graph (both graphs must be the same size - same amount of verticies). .
 * *Multiplication* `*`: 
     1. multiplication of two graphs, where each corresponding edge weight is multiplied together to form a new graph.
-    2. multiplication of an integer with a graph - the weight of every edge a the graph.
+    2. multiplication of an scaler with a graph - the weight of every edge a the graph.
 
 **Assignment Operators:**
 * *Compound Addition* `+=`: the current graph is modified by adding another graph to it.
 * *Compound Subtraction* `-=`: the current graph is modified by subtracting another graph from it.
-* *Compound Multiplication* `*=`: he current graph is modified by element-wise multiplying it with another graph.
+* *Compound Multiplication* `*=`: the current graph is modified by multiplying it with another graph or scaler.
+* *Compound Division* `/=`: the current graph is modified by dividing it by a scaler.
 
 **Unary operators:**
 * *Unary Plus* `+graph`: returns a copy of the graph as is.
@@ -40,8 +41,11 @@ As in the previous assignment, the graph is represented using an adjacency matri
 * *Greater Than or Equal To* `>=`: checks if the the graph is greater or equal to another garph.
 * *Less Than or Equal To* `<=`: checks if the the graph is less or equal to another garph.
 
+**Stream insersion operator:**
+* `<<` : enables printing the adjacancy matrix of a graph.
+
 ## Tests
-The project includes tests written using the `doctest.h` framework. These tests ensure the correctness and robustness of the implemented graph algorithms and graph operations.
+The project includes tests written using the `doctest.h` framework. All of the tests are in `Test.cpp`, inclusing the tests from last assignment. These tests ensure the correctness and robustness of the implemented graph algorithms and graph operations.
 
 
 
