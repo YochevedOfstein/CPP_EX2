@@ -889,8 +889,10 @@ TEST_CASE("Test algorithms and operations"){
 
     CHECK(ariel::Algorithms::isConnected(g1 + g2) == true);
     CHECK(ariel::Algorithms::isContainsCycle(g2 * -1 + g1) == "-1");
+    CHECK(ariel::Algorithms::isContainsCycle(g2 * g2) == "0 -> 1 -> 2 -> 0");
     CHECK(ariel::Algorithms::isBipartite(g1 + g2) == "The graph is not bipartite");
     CHECK(ariel::Algorithms::shortestPath(g1 + g2, 0, 2) == "0 -> 2");
+    CHECK(ariel::Algorithms::shortestPath(g1 * g2, 0, 2) == "0 -> 2");
     CHECK(ariel::Algorithms::shortestPath(g1 - g2, 0, 2) == "Graph contains negative cycle");
     CHECK(ariel::Algorithms::negativeCycle(g1 + g2) == "No negative cycle found");
 }
