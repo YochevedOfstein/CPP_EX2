@@ -1,4 +1,4 @@
-// yocheved@davidowitz.net | 324460682
+
 
 #include "doctest.h"
 #include "Algorithms.hpp"
