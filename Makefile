@@ -1,7 +1,4 @@
 
-#!make -f
-# yocheved@davidowitz.net | 324460682
-
 
 CXX=clang++
 CXXFLAGS=-std=c++11 -Werror -Wsign-conversion
