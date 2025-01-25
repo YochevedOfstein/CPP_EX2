@@ -1,4 +1,3 @@
-// yocheved@davidowitz.net | 324460682
 
 #ifndef ALGORITHMS_HPP
 #define ALGORITHMS_HPP
