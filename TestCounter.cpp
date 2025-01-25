@@ -1,4 +1,4 @@
-// yocheved@davidowitz.net | 324460682
+
 
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
